@@ -1,0 +1,39 @@
+# @name login
+POST http://localhost:5000/autenticacao/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "nomeUsuario": "acerto",
+  "senha": "acerto_pass",
+  "papel": "admin"
+}
+
+###
+//Criação de Novo Pedido
+POST https://localhost:7059/pedidos/
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+  "id": "9fa85f64-5717-4562-b3fc-2c963f66afa3",
+  "dataCriacao": "2024-04-18T00:29:55.478Z",
+  "produtos": [
+    {
+        "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "quantidade": 60
+        
+    }
+  ]
+}
+
+###
+//Todos os Pedido
+GET https://localhost:7059/pedidos/
+Content-Type: application/json
+
+###
+//Pedido por Id
+GET https://localhost:7059/pedidos/9fa85f64-5717-4562-b3fc-2c963f66afa3
+Content-Type: application/json
+
+
