@@ -11,7 +11,5 @@ builder.Services.AddInfra(builder.Configuration);
 var app = builder.Build();
 
 app.AddEndpoints();
-app.UseAuthentication();
-app.UseAuthorization();
 
 app.Run();

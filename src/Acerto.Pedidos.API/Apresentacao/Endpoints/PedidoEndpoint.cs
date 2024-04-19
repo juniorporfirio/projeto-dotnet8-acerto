@@ -12,9 +12,9 @@ namespace Acerto.Pedidos.API.Apresentacao
     {
          public static RouteGroupBuilder MapPedidoEndopoints(this RouteGroupBuilder router)
         {
-            router.MapPost("/", Novo).RequireAuthorization().Produces(200);
-            router.MapGet("/", Todos).RequireAuthorization().Produces(200);
-            router.MapPost("/{id}", PorId).RequireAuthorization().Produces(200);
+            router.MapPost("/", Novo).Produces(200);
+            router.MapGet("/", Todos).Produces(200);
+            router.MapGet("/{id}", PorId).Produces(200);
 
             return router;
         }

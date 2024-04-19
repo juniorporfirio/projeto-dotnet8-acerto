@@ -1,3 +1,4 @@
+using System.Configuration;
 using System.Text;
 using Acerto.Produtos.API.Apresentacao.Endpoints.Autenticacao;
 using Acerto.Produtos.API.Dominio.Configuracoes;
@@ -11,11 +12,13 @@ namespace Acerto.Produtos.API.Infra
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfra(this IServiceCollection services)
+        public static IServiceCollection AddInfra(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = Environment.GetEnvironmentVariable("MYSQL_CONNECTION")!;
+            
+            var connectionString =configuration.GetConnectionString("AcertoProdutos")!.ToString();
 
-            services.AddDbContext<AcertoContext>(options => options.UseInMemoryDatabase("Acerto"));
+            // services.AddDbContext<AcertoContext>(options => options.UseInMemoryDatabase("Acerto"));
+            services.AddDbContext<AcertoContext>(options => options.UseMySQL(connectionString));
             services.AddTransient<IProdutosRepository, ProdutoRepository>();
             services.AddTransient<ITokenServico, TokenServico>();
 

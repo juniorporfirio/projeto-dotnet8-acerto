@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Acerto.Pedidos.API.Dominio.Interfaces.Fila;
 using RabbitMQ.Client;
 
@@ -21,7 +22,10 @@ public class FilaIntegracaoRabbit : IFilaIntegracao
                                 autoDelete: false,
                                 arguments: null);
 
-        var json = JsonSerializer.Serialize(message);
+        var json = JsonSerializer.Serialize(message, new JsonSerializerOptions {
+            ReferenceHandler = ReferenceHandler.IgnoreCycles,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+            });
         var body = Encoding.UTF8.GetBytes(json);
 
         channel.BasicPublish(exchange: "",

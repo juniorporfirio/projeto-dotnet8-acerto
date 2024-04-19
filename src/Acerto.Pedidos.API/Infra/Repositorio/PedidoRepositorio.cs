@@ -13,7 +13,7 @@ namespace Acerto.Pedidos.API.Infra.Repositorio
         {
             _contexto = contexto;
         }
-        public async Task<IEnumerable<Pedido>> Todos() => await _contexto.Pedidos.Include(i=>i.Produtos).AsNoTracking().ToListAsync();
+        public async Task<IEnumerable<Pedido>> Todos() => await _contexto.Pedidos.AsNoTracking().Include(i=>i.Produtos).ToListAsync();
 
         public async  Task Novo(Pedido pedido)
         {
@@ -21,6 +21,6 @@ namespace Acerto.Pedidos.API.Infra.Repositorio
            await _contexto.SaveChangesAsync();
         }
 
-        public async Task<Pedido> PorId(Guid id) => await _contexto.Pedidos.FindAsync(id) ?? throw new ArgumentException("Pedido não encontrado");
+        public async Task<Pedido> PorId(Guid id) => await _contexto.Pedidos.AsNoTracking().Include(s=>s.Produtos).FirstAsync(s=>s.Id == id) ?? throw new ArgumentException("Pedido não encontrado");
     }
 }

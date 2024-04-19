@@ -5,4 +5,7 @@ public class Produto{
     public int Quantidade {get;set;} = 1;
     public decimal Preco {get;set;} = decimal.Zero;
 
+    public Guid PedidoId {get;set;} 
+    public Pedido Pedido { get; set; } = new();
+
     }

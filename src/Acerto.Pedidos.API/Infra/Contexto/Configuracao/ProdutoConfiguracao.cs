@@ -8,7 +8,7 @@ namespace Acerto.Pedidos.API.Infra.Contexto.Configuracao
     {
         public void Configure(EntityTypeBuilder<Produto> builder)
         {
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => new{ x.Id, x.PedidoId});
             builder.ToTable("tb_produto");
             
             builder.Property(x => x.Preco)
@@ -23,6 +23,9 @@ namespace Acerto.Pedidos.API.Infra.Contexto.Configuracao
            .HasColumnName("nome")
            .IsRequired();
 
+           builder.Property(x => x.PedidoId)
+           .HasColumnName("pedido_id")
+           .IsRequired();
 
         }
 

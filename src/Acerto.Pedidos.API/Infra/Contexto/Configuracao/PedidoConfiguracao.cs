@@ -28,6 +28,10 @@ namespace Acerto.Pedidos.API.Infra.Contexto.Configuracao
           .HasColumnName("valor_total")
           .IsRequired();
 
+           builder.HasMany(c => c.Produtos)
+            .WithOne(e => e.Pedido)
+             .IsRequired();
+
 
 
         }
